@@ -9,6 +9,8 @@ import App from './components/App';
 import rootReducer from './reducers';
 import SERVER_URL from './constants/server-url';
 import { loadData } from './actions/fetchData';
+import { loadSites } from './actions/fetchSites';
+import { addUser } from './actions/userList';
 
 /**
  * The function waits till the chayns api is successfully loaded and
@@ -40,8 +42,9 @@ async function init() {
     await chayns.ready;
 
     const tappElement = document.querySelector('.tapp');
-    ReactDOM.render(<Provider store={store}>
-        <App/>
+    ReactDOM.render(
+        <Provider store={store}>
+            <App/>
     </Provider>, tappElement);
 
     /**
@@ -58,6 +61,8 @@ async function init() {
 
     // dispatch async example action
     store.dispatch(loadData());
+    store.dispatch(loadSites('chayns', 0, 20));
+    setTimeout(_ => store.dispatch(loadSites('tobit', 0, 20)), 5000);
 }
 
 init();

@@ -25,7 +25,7 @@ PersonFinderWrapper.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-    addUser: user => dispatch(addUserAction(fromJS(user)))
+    addUser: user => dispatch(addUserAction(fromJS(user))),
 });
 
 export default connect(

@@ -1,2 +1,7 @@
-export const HEADLINE = 'chayns user selector';
-export const DESCRIPTION = 'This tapp lets chayns® Managers switch to an \'admin mode\' which displays secured content and enables to select users via the chayns® person finder. Selected users will be added to a list that can be seen in both admin and user modes.This is an example of a ModeSwitch implementation and shows you how to secure content by UAC groups.';
+export const HEADLINE = 'My Favorite Sites';
+export const DESCRIPTION1 = 'Hier findest du eine Übersicht über alle deine Lieblings Chayns Sites. Außerdem kannst du ';
+export const DESCRIPTION2 = ' weitere Sites hinzufügen.';
+export const OVERVIEW = 'Übersicht';
+export const SHOW_MORE = 'Mehr anzeigen';
+export const NOTHING_FOUND = 'Nichts gefunden';
+export const SEARCH = 'Suche';
