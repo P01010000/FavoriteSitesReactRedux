@@ -42,7 +42,7 @@ class SearchContainer extends React.Component {
 
   render() {
     return (
-      <div className="accordion accordion--open" data-group="site" style={{ overflow: 'hidden', marginTop: '30px' }} >
+      <div className="accordion accordion--open" data-group="site" >
         <SearchHead callback={this.loadNewData} />
         <ResultList sites={this.props.sites} callback={this.loadMoreData} reachedEnd={this.props.reachedEnd} />
       </div>

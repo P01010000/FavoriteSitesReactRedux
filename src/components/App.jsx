@@ -7,8 +7,10 @@ import Formular from './formular/Formular';
 const App = () => (
     <div>
         <Intro />
-        <SearchContainer defaultSearch="chayns" />
-        <Formular />
+        <div className="tapp__content">
+            <SearchContainer defaultSearch="chayns" />
+            <Formular />
+        </div>
     </div>
 );
 
