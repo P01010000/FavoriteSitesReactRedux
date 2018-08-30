@@ -4,13 +4,8 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import immutable from 'immutable';
-import { ModeSwitch } from 'chayns-components';
 import App from './components/App';
 import rootReducer from './reducers';
-import SERVER_URL from './constants/server-url';
-import { loadData } from './actions/fetchData';
-import { loadSites } from './actions/fetchSites';
-import { addUser } from './actions/userList';
 
 /**
  * The function waits till the chayns api is successfully loaded and
@@ -20,8 +15,6 @@ import { addUser } from './actions/userList';
  * @return {Promise.<void>}
  */
 async function init() {
-    console.debug('ServerUrl for current environment:', SERVER_URL);
-
     if (__DEV__ || __STAGING__) {
         const installDevTools = require('immutable-devtools');
         installDevTools(immutable);
@@ -45,24 +38,9 @@ async function init() {
     ReactDOM.render(
         <Provider store={store}>
             <App/>
-    </Provider>, tappElement);
-
-    /**
-     * Initialize the ModeSwitch. The available modes are 'user mode' (default) and 'chayns® manager'.
-     * You can specify content to display according to the current mode (see chayns 'mode' component).
-     */
-    ModeSwitch.init({
-        groups: [{
-            id: 1,
-            uacIds: [1],
-            name: 'chayns® manager'
-        }]
-    });
-
-    // dispatch async example action
-    store.dispatch(loadData());
-    store.dispatch(loadSites('chayns', 0, 20));
-    setTimeout(_ => store.dispatch(loadSites('tobit', 0, 20)), 5000);
+        </Provider>
+        , tappElement
+    );
 }
 
 init();

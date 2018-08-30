@@ -1,9 +1,3 @@
-export const SAVE_SERVER_SITES = 'SAVE_SERVER_SITES';
-export const saveServerSites = data => ({
-    type: SAVE_SERVER_SITES,
-    data
-});
-
 export const LOAD_SITES_NEW = 'LOAD_SITES_NEW';
 export const loadSitesNew = data => ({
     type: LOAD_SITES_NEW,
