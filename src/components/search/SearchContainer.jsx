@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fromJS } from 'immutable';
 import SearchHead from './SearchHead';
 import ResultList from '../result/ResultList';
 import './SearchContainer.scss';
@@ -9,69 +8,58 @@ import { loadSites as loadSitesAction } from '../../actions/fetchSites';
 
 class SearchContainer extends React.Component {
   static propTypes = {
-    defaultSearch: PropTypes.string.isRequired
+    sites: PropTypes.instanceOf(Array).isRequired,
+    start: PropTypes.number.isRequired,
+    take: PropTypes.number,
+    reachedEnd: PropTypes.bool,
+    searchString: PropTypes.string.isRequired,
+    defaultSearch: PropTypes.string.isRequired,
+    loadSites: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    take: 20,
+    reachedEnd: true
   }
 
   constructor(props) {
     super(props);
-    this.state = {
-      sites: [],
-      reachedEnd: true,
-      start: 0,
-      take: 20,
-      defaultSearch: props.defaultSearch,
-      searchString: props.defaultSearch,
-    };
     this.loadNewData = this.loadNewData.bind(this);
     this.loadMoreData = this.loadMoreData.bind(this);
   }
 
   componentDidMount() {
-    this.loadNewData(this.state.defaultSearch);
+    this.loadNewData(this.props.defaultSearch);
   }
 
-  async loadNewData(searchString) {
-    console.log(this.props);
-    this.props.loadSites(searchString, 0, 20);
-    this.loadSiteData(searchString || this.state.defaultSearch, 0, this.state.take, false);
+  loadNewData(searchString) {
+    this.props.loadSites(searchString || this.props.defaultSearch, 0, this.props.take, false);
   }
 
-  async loadMoreData() {
-    this.props.loadSites('chayns', 20, 20);
-    this.loadSiteData(this.state.searchString, this.state.start, this.state.take, true);
-  }
-
-  async loadSiteData(searchString, start, take, append) {
-    try {
-      //const result = await fetchSites(searchString, start, take);
-      this.setState({
-        sites: append ? this.state.sites.concat(result.sites) : result.sites,
-        searchString,
-        start: start + result.sites.length,
-        reachedEnd: result.reachedEnd
-       });
-    } catch (err) {
-      this.setState({});
-    }
+  loadMoreData() {
+    this.props.loadSites(this.props.searchString, this.props.start, this.props.take, true);
   }
 
   render() {
     return (
       <div className="accordion accordion--open" data-group="site" style={{ overflow: 'hidden', marginTop: '30px' }} >
         <SearchHead callback={this.loadNewData} />
-        <ResultList sites={this.state.sites} callback={this.loadMoreData} reachedEnd={this.props.reachedEnd} />
+        <ResultList sites={this.props.sites} callback={this.loadMoreData} reachedEnd={this.props.reachedEnd} />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(state.fetchSites.get('reachedEnd'));
-  return Object.assign({}, ownProps, { reachedEnd: state.fetchSites.get('reachedEnd') });
-};
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    sites: state.fetchSites.sites,
+    searchString: state.fetchSites.searchString,
+    start: state.fetchSites.start,
+    reachedEnd: state.fetchSites.reachedEnd,
+  });
 
 const mapDispatchToProps = (dispatch, ownProps) => (Object.assign({}, ownProps, {
-    loadSites: (searchString, start, take) => dispatch(loadSitesAction(searchString, start, take))
+    loadSites: (searchString, start, take, append) => dispatch(loadSitesAction(searchString, start, take, append))
 }));
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer);
