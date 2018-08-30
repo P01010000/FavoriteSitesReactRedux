@@ -5,7 +5,7 @@ const ResultListItem = ({ appstoreName: name, siteId, locationId }) => (
     <div className="accordion__item">
         <div className="ListItem ListItem--clickable" onClick={() => chayns.openUrlInBrowser(`https://chayns.net/${siteId}`)} onKeyPress={() => undefined} >
             <div className="ListItem__head">
-                <div className="ListItem__Image" style={{ backgroundImage: `url(https://sub60.tobit.com/l/${locationId})`, backgroundSize: 'contain' }} />
+                <div className="ListItem__Image" style={{ backgroundImage: `url(https://sub60.tobit.com/l/${locationId})` }} />
                 <div className="ListItem__Title">
                     <p className="ListItem__Title--headline">{name}</p>
                     <p className="ListItem__Title--description">{siteId}</p>

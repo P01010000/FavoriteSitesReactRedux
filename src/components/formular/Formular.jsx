@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './Formular.scss';
 import login from '../../utils/login';
 
@@ -16,6 +18,10 @@ class Formular extends React.Component {
     }
   }
 
+  static propTypes = {
+    open: PropTypes.bool.isRequired
+  }
+
   constructor() {
     super();
     this.state = {};
@@ -23,7 +29,7 @@ class Formular extends React.Component {
 
   render() {
     return (
-    <div className="accordion" data-group="site">
+    <div className={`accordion ${this.props.open ? 'accordion--open' : ''}`} data-group="site">
       <div className="accordion__head">Site hinzufügen
         <div className="badge right">
             <i className="fa fa-plus" />
@@ -61,4 +67,9 @@ class Formular extends React.Component {
   }
 }
 
-export default Formular;
+const mapStateToProps = (state, ownProps) =>
+  Object.assign({}, ownProps, {
+    open: state.openAccordion.form
+  });
+
+export default connect(mapStateToProps, undefined)(Formular);
