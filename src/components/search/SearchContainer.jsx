@@ -42,7 +42,6 @@ class SearchContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props.open);
     return (
       <div className={`accordion ${this.props.open ? 'accordion--open' : ''}`}>
         <SearchHead callback={this.loadNewData} />
