@@ -1,10 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { OVERVIEW, SEARCH } from '../../constants/text';
+import { toggleSearch as toggleSearchAction } from '../../actions/openAccordion';
 
 class SearchHead extends React.Component {
   static propTypes = {
-    callback: PropTypes.func.isRequired
+    callback: PropTypes.func.isRequired,
+    toggleSearch: PropTypes.func.isRequired
   }
 
   constructor() {
@@ -21,7 +24,7 @@ class SearchHead extends React.Component {
 
   render() {
     return (
-      <div className="accordion__head search">
+      <div className="accordion__head search" onClick={() => setTimeout(() => this.props.toggleSearch(), 1)}>
         <div className="accordion--trigger accordion__head--search--wrapper">
           <div className="accordion--trigger accordion__head--search">
               {OVERVIEW}
@@ -36,4 +39,8 @@ class SearchHead extends React.Component {
   }
 }
 
-export default SearchHead;
+const mapDispatchToProps = (dispatch, ownProps) => Object.assign({}, ownProps, {
+  toggleSearch: () => dispatch(toggleSearchAction())
+});
+
+export default connect(undefined, mapDispatchToProps)(SearchHead);
