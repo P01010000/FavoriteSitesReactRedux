@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './Formular.scss';
 import login from '../../utils/login';
+import { toggleFormular as toggleFormularAction } from '../../actions/openAccordion';
 
 class Formular extends React.Component {
   static async handleSubmit(ev) {
@@ -19,7 +20,8 @@ class Formular extends React.Component {
   }
 
   static propTypes = {
-    open: PropTypes.bool.isRequired
+    open: PropTypes.bool.isRequired,
+    toggleFormular: PropTypes.func.isRequired
   }
 
   constructor() {
@@ -29,8 +31,8 @@ class Formular extends React.Component {
 
   render() {
     return (
-    <div className={`accordion ${this.props.open ? 'accordion--open' : ''}`} data-group="site">
-      <div className="accordion__head">Site hinzufügen
+    <div className={`accordion ${this.props.open ? 'accordion--open' : ''}`}>
+      <div className="accordion__head" onClick={() => setTimeout(() => this.props.toggleFormular(), 1)}>Site hinzufügen
         <div className="badge right">
             <i className="fa fa-plus" />
         </div>
@@ -72,4 +74,8 @@ const mapStateToProps = (state, ownProps) =>
     open: state.openAccordion.form
   });
 
-export default connect(mapStateToProps, undefined)(Formular);
+const mapDispatchToProps = (dispatch, ownProps) => Object.assign({}, ownProps, {
+  toggleFormular: () => dispatch(toggleFormularAction())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Formular);

@@ -15,7 +15,7 @@ class SearchContainer extends React.Component {
     searchString: PropTypes.string.isRequired,
     defaultSearch: PropTypes.string.isRequired,
     loadSites: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired
+    open: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
@@ -42,8 +42,9 @@ class SearchContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props.open);
     return (
-      <div className={`accordion ${this.props.open ? 'accordion--open' : ''}`} data-group="site" >
+      <div className={`accordion ${this.props.open ? 'accordion--open' : ''}`}>
         <SearchHead callback={this.loadNewData} />
         <ResultList sites={this.props.sites} callback={this.loadMoreData} reachedEnd={this.props.reachedEnd} />
       </div>
