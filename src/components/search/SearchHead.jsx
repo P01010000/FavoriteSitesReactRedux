@@ -24,7 +24,11 @@ class SearchHead extends React.Component {
 
   render() {
     return (
-      <div className="accordion__head search" onClick={() => setTimeout(() => this.props.toggleSearch(), 1)}>
+      <div
+        className="accordion__head search"
+        onClick={({ target }) => (target.classList.contains('search') ? setTimeout(() => this.props.toggleSearch(), 1) : undefined)}
+        onKeyUp={() => undefined}
+      >
         <div className="accordion--trigger accordion__head--search--wrapper">
           <div className="accordion--trigger accordion__head--search">
               {OVERVIEW}
@@ -32,7 +36,7 @@ class SearchHead extends React.Component {
         </div>
         <div className="Suche Suche--accordion chayns__border-color--50">
           <input type="text" placeholder={SEARCH} id="searchFilter" onKeyUp={this.handleChange} defaultValue="" />
-          <label><i className="fa fa-search" /></label>
+          <label htmlFor="searchFilter"><i className="fa fa-search" /></label>
         </div>
       </div>
     );

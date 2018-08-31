@@ -21,7 +21,7 @@ Intro.propTypes = {
     openAccordion: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     openAccordion: () => dispatch(openFormularAction()),
 });
 

@@ -32,7 +32,7 @@ class Formular extends React.Component {
   render() {
     return (
     <div className={`accordion ${this.props.open ? 'accordion--open' : ''}`}>
-      <div className="accordion__head" onClick={() => setTimeout(() => this.props.toggleFormular(), 1)}>Site hinzufügen
+      <div className="accordion__head" onClick={() => setTimeout(() => this.props.toggleFormular(), 1)} onKeyUp={() => undefined} >Site hinzufügen
         <div className="badge right">
             <i className="fa fa-plus" />
         </div>
